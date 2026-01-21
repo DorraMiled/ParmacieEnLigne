@@ -1,10 +1,10 @@
-# eCommerce Application
+# ePharmaApplication
 
-Application de commerce électronique complète développée avec la stack MEAN (MongoDB, Express, Angular, Node.js).
+Application développée avec la stack MEAN (MongoDB, Express, Angular, Node.js).
 
 ## 📋 Description
 
-Cette application eCommerce offre une plateforme complète de gestion de boutique en ligne avec des fonctionnalités pour les clients et les administrateurs. Elle permet la gestion de produits, de catégories, de marques, de commandes et de profils utilisateurs.
+Cette application Pharmacie en ligne offre une plateforme complète de gestion de pharmacie en ligne avec des fonctionnalités pour les clients et les administrateurs. Elle permet la gestion de produits, de catégories, de marques, de commandes et de profils utilisateurs.
 
 ## 🚀 Technologies Utilisées
 
