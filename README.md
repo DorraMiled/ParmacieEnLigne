@@ -83,6 +83,34 @@ eCommerce/
 - MongoDB (v4.4 ou supérieur)
 - npm ou yarn
 
+### 🚀 Installation Rapide (après clonage GitHub)
+
+**Option 1 : Script automatique (Windows)**
+```powershell
+# Exécuter le script d'installation
+.\install.ps1
+```
+
+**Option 2 : Installation manuelle**
+```bash
+# 1. Cloner le repository
+git clone <votre-url-github>
+cd eCommerce
+
+# 2. Installer les dépendances du backend
+cd backend
+npm install
+
+# 3. Installer les dépendances du frontend
+cd ../webapp
+npm install
+
+# 4. Retourner à la racine du projet
+cd ..
+```
+
+**⚠️ IMPORTANT** : Les dossiers `node_modules` ne sont pas inclus dans le repository GitHub. Vous **DEVEZ** exécuter `npm install` dans les deux dossiers (backend et webapp) après avoir cloné le projet.
+
 ### Installation du Backend
 
 ```bash
