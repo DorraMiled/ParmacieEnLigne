@@ -1,0 +1,61 @@
+<div class="py-10 px-20">
+    <h3 class="text-2xl font-bold mb-6">Les commandes</h3>
+    <div class="space-y-6">
+
+        <!-- Loop through orders -->
+        <div *ngFor="let order of orders; let i = index" class="bg-white rounded-lg shadow-lg p-6">
+            <!-- Order Header -->
+            <div class="mb-4 border-b pb-4">
+                <h4 class="text-lg font-semibold">Order ID: {{ order._id }}</h4>
+                <p class="text-sm text-gray-500">Date: {{ order.date | date: 'mediumDate' }}</p>
+            </div>
+
+            <!-- Order Content -->
+            <div class="grid grid-cols-3 gap-6">
+                <!-- Products Section -->
+                <div class="col-span-2">
+                    <h5 class="text-lg font-bold mb-4">Produits</h5>
+                    <div *ngFor="let item of order.items; let i = index" class="flex items-center gap-4 mb-4">
+                        <img [src]="item.product.images[0]?.url" alt="Product Image"
+                            class="w-20 h-20 object-cover rounded">
+                        <div>
+                            <h6 class="font-bold">{{ item.product.name }}</h6>
+                            <div class="flex gap-2">
+                                <span class="!text-sm text-gray-400"><s>{{ item.product.Price }} D</s></span>
+                                <span *ngIf="item.product.discount && item.product.discount.valueOf() > 0"
+                                    class="!text-sm text-orange-300">{{ item.product.discount }}% OFF</span>
+                                <span class="!text-sm text-green-500 font-bold">{{ sellingPrice(item.product) }}
+                                    D</span>
+                            </div>
+                            <p class="text-sm">Quantté: {{ item.quantity }}</p>
+                            <p class="text-sm font-semibold">Total: {{ sellingPrice(item.product) * item.quantity }} D
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Address and Status Section -->
+                <div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h4 class="text-lg font-bold mb-4">Adresse de livraison</h4>
+                        <p>Adresse:{{ order.address.address1 }}</p>
+                        <p>Cité:{{ order.address.city }}</p>
+                        <p> Code postal:{{ order.address.pincode }}</p>
+                    </div>
+
+
+                    <h4 class="text-lg font-semibold">statut des commandes</h4>
+                    <mat-button-toggle-group [value]="order.status" name="status" aria-label="Font Style"
+                        (change)="statusChanged($event, order)">
+                        <mat-button-toggle value="Dispatched">en cours </mat-button-toggle>
+                        <mat-button-toggle value="Shipped">en routes</mat-button-toggle>
+                        <mat-button-toggle value="Delivered">livré</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

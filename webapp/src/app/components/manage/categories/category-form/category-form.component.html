@@ -1,0 +1,31 @@
+<div class="flex flex-col items-center px-40 mt-10">
+    <!-- Titre conditionnel -->
+    <h1 *ngIf="isEdit; else addCategory">Update Category</h1>
+    <ng-template #addCategory>
+        <h1>Add Category</h1>
+    </ng-template>
+
+    <!-- Formulaire -->
+    <form class="shadow-sm w-96 p-4">
+        <div class="flex flex-wrap">
+
+            <div class="w-full">
+                <mat-form-field class="w-full">
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="name" name="name">
+                </mat-form-field>
+            </div>
+
+            <!-- Boutons conditionnels -->
+            <div class="w-full flex justify-center">
+                <button *ngIf="isEdit" mat-raised-button color="primary" [disabled]="!name" (click)="update()">
+                    Update
+                </button>
+                <button *ngIf="!isEdit" mat-raised-button color="primary" [disabled]="!name" (click)="add()">
+                    Add
+                </button>
+            </div>
+
+        </div>
+    </form>
+</div>

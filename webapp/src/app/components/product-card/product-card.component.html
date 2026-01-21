@@ -1,0 +1,33 @@
+<div class="border-r-4 w-full shadow-lg" [routerLink]="'/product/'+product._id">
+    <img [src]="product.images[0]?.url" alt="Product Image" class="w-full h-52 object-cover" />
+    <div class="p-4">
+        <h6 class="mb-2">{{ product.name }}</h6>
+        <p>{{ product.shortDescription }}</p>
+        <div class="flex justify-between items-baseline">
+            <div class="flex gap-2">
+                <!-- Cas avec discount -->
+                <ng-container *ngIf="product.discount && product.discount.valueOf() > 0; else noDiscount">
+                    <span class="!text-lg text-gray-400">
+                        <s>{{ product.Price }} D</s>
+                    </span>
+                    <span class="!text-xs text-orange-300">
+                        {{ product.discount }} % OFF
+                    </span>
+                    <span class="!text-lg text-green-500 font-bold">
+                        {{ sellingPrice }} D
+                    </span>
+                </ng-container>
+
+                <!-- Cas sans discount -->
+                <ng-template #noDiscount>
+                    <span class="!text-lg text-gray-800 font-bold">
+                        {{ product.Price }} D
+                    </span>
+                </ng-template>
+            </div>
+
+            <!-- Icône de visibilité -->
+            <mat-icon [routerLink]="'/product/'+product._id" class="cursor-pointer">visibility</mat-icon>
+        </div>
+    </div>
+</div>

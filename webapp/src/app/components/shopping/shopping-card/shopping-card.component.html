@@ -1,0 +1,120 @@
+<div class="max-w-4xl mx-auto py-12">
+    <div *ngIf="orderStep == 0">
+        <h1 class="text-3xl font-bold text-center mb-8">Your Shopping Cart</h1>
+
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <div *ngFor="let item of cartItems; let i = index" class="flex items-center justify-between p-6 border-b">
+                <div class="flex items-center">
+                    <img [src]="item.product.images[0]?.url" alt="Product Image" class="w-20 h-20 object-cover rounded">
+                    <div class="ml-4">
+                        <h2 class="!text-xl font-bold">{{ item.product.name }}</h2>
+                        <div class="flex gap-2">
+                            <span class="!text-lg text-gray-400"><s>{{ item.product.Price }} D</s></span>
+                            <span class="!text-xs text-orange-300">{{ item.product.discount }} % OFF</span>
+                            <span class="!text-lg text-green-500 font-bold">{{ sellingPrice(item.product) }} D</span>
+                        </div>
+                        <div>
+                            Somme: {{ sellingPrice(item.product) * item.quantity }} D
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex items-center">
+                    <div class="flex items-center">
+                        <span class="mr-4">Quantity:</span>
+                        <span (click)="addToCart(item.product._id!, -1)"
+                            class="text-lg bg-gray-400 rounded-sm px-3 py-2 shadow cursor-pointer">-</span>
+                        <span class="mx-2">{{ item.quantity }}</span>
+                        <span (click)="addToCart(item.product._id!, 1)"
+                            class="text-lg bg-gray-400 rounded-sm px-3 py-2 shadow cursor-pointer">+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 bg-white shadow-md rounded-lg overflow-hidden p-6">
+            <h2 class="text-xl font-bold mb-4">Cart Summary </h2>
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-lg">Total:</span>
+                <span class="text-lg font-bold">{{ totalAmount }}</span>
+            </div>
+            <div class="flex justify-end">
+                <button (click)="checkout()"
+                    class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md focus:outline-none">Payment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Show the stepper only when orderStep is 1 -->
+    <mat-vertical-stepper *ngIf="orderStep == 1" [linear]="true" #stepper [animationDuration]="duration">
+        <!-- Step 1: Address Form -->
+        <mat-step [stepControl]="addressForm">
+            <form [formGroup]="addressForm">
+                <ng-template matStepLabel>Fill out your address</ng-template>
+                <!-- Address fields here -->
+                <div class="mb-4">
+                    <mat-form-field class="w-full">
+                        <mat-label for="name">Address1</mat-label>
+                        <input type="text" formControlName="address1" matInput placeholder="address1" required />
+
+                    </mat-form-field>
+                </div>
+
+                <div class="mb-4">
+                    <mat-form-field class="w-full">
+                        <mat-label for="name">Address2</mat-label>
+                        <input type="text" formControlName="address2" matInput placeholder="address2" />
+
+
+                    </mat-form-field>
+                </div>
+                <div class="mb-6">
+                    <mat-form-field class="w-full">
+                        <mat-label for="name">City</mat-label>
+                        <input type="text" formControlName="city" matInput placeholder="city" required />
+
+
+                    </mat-form-field>
+                </div>
+
+                <div class="mb-6">
+                    <mat-form-field class="w-full">
+                        <mat-label for="name">PinCode</mat-label>
+                        <input type="text" formControlName="pincode" matInput placeholder="pincode" required />
+
+
+                    </mat-form-field>
+                </div>
+                <!-- Additional address fields... -->
+                <div class="flex justify-between">
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+
+        <!-- Step 2: Payment Method -->
+        <mat-step>
+            <ng-template matStepLabel>Choose Payment Method</ng-template>
+            <div class="px-30 shadow">
+                <mat-radio-group [(ngModel)]="paymentType">
+                    <mat-radio-button value="cash">Cash</mat-radio-button>
+                    <mat-radio-button value="card" [disabled]="true">Card (Currently Unavailable)</mat-radio-button>
+                </mat-radio-group>
+                <div class="flex justify-between mt-4">
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext (click)="completeOrder()">Complete Order</button>
+                </div>
+            </div>
+        </mat-step>
+
+        <!-- Step 3: Order Confirmation -->
+        <mat-step>
+            <ng-template matStepLabel>Order Complete</ng-template>
+            <div class="text-center">
+                <h2>Your Order is Complete!</h2>
+                <p>Thank you for your order. You will receive a confirmation soon.</p>
+            </div>
+
+        </mat-step>
+    </mat-vertical-stepper>
+</div>

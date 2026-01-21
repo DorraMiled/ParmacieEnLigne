@@ -1,0 +1,76 @@
+<div class=" mx-auto bg-white rounded-lg shadow-lg px-40 overflow-hidden mb-4 mt-4">
+    <div class="flex">
+        <div class="w-5/12">
+            <div class="flex flex-col gap-2">
+                <img [src]="mainImage" alt="Product Image" class="w-full h-auto shadow" />
+                <div class="flex justify-around shadow">
+                    <ng-container *ngFor="let image of product.images; let i = index">
+                        <img [src]="image.url" alt="Product Thumbnail {{ i + 1 }}" class="w-2/12 h-auto mb-2" />
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-7/12 p-4">
+            <h2 class="!text-3xl font-bold text-gray-800 mb-2">{{product.name}} </h2>
+            <p class=" text-gray-700 mb-4">{{product.shortDescription}}</p>
+            <div class="flex justify-between px-20 item-baseline">
+
+                <div class="flex gap-2">
+                    <!-- Cas avec discount -->
+                    <ng-container *ngIf="product.discount && product.discount.valueOf() > 0; else noDiscount">
+                        <span class="!text-lg text-gray-400">
+                            <s>{{ product.Price }} D</s>
+                        </span>
+                        <span class="!text-xs text-orange-300">
+                            {{ product.discount }} % OFF
+                        </span>
+                        <span class="!text-lg text-green-500 font-bold">
+                            {{ sellingPrice }} D
+                        </span>
+                    </ng-container>
+
+                    <!-- Cas sans discount -->
+                    <ng-template #noDiscount>
+                        <span class="!text-lg text-gray-800 font-bold">
+                            {{ product.Price }} D
+                        </span>
+                    </ng-template>
+                </div>
+
+
+                <!-- Check if product._id exists before checking if it's in the cart -->
+                <button *ngIf="isProductInCart(product._id!)" mat-flat-button color="primary" class="shadow"
+                    (click)="addTocart(product)">
+                    <mat-icon>remove_shopping_cart</mat-icon> Enlever du panier
+                </button>
+                <button *ngIf="!isProductInCart(product._id!)" mat-flat-button color="primary"
+                    (click)="addTocart(product)">
+                    <mat-icon>add_shopping_cart</mat-icon> Ajouter au panier
+                </button>
+
+
+            </div>
+            <div class="border-t border-gray-200 pt-4">
+                <h3 class="!text-3xl font-bold text-gray-800 mb-2">Details du produit</h3>
+                <pre>{{product.description}}</pre>
+            </div>
+        </div>
+
+    </div>
+    <!-- product details -->
+
+
+    <div *ngIf="similarProducts.length" class="my-4">
+        <h4 class="!text-3xl font-bold text-gray-800 mb-2">Produits similaires</h4>
+        <div class="flex justify-between gap-2">
+            <div class="w-3/12 shadow" *ngFor="let product of similarProducts">
+                <app-product-card [product]="product"></app-product-card>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>

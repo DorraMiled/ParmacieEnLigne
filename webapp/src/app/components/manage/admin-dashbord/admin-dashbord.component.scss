@@ -1,0 +1,38 @@
+/* Ajout de styles pour les boutons */
+.custom-button {
+    background-color: #4CAF50; // Couleur de fond verte
+    color: white;
+    font-size: 16px;
+    border-radius: 25px; // Coins arrondis
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Ombre légère
+    transition: background-color 0.3s, transform 0.3s; // Transition douce
+
+    &:hover {
+        background-color: #45a049; // Couleur légèrement plus foncée au survol
+        transform: translateY(-3px); // Légère élévation
+    }
+}
+
+/* Styling pour le conteneur */
+.flex {
+    display: flex;
+    justify-content: center;
+    gap: 20px; // Espacement entre les boutons
+}
+
+/* Ajout d'un fond pour la section */
+.bg-gray-100 {
+    background-color: #f7fafc; // Fond gris clair
+}
+
+.p-10 {
+    padding: 10px; // Espacement interne
+}
+
+.rounded-lg {
+    border-radius: 10px; // Coins arrondis du conteneur
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); // Ombre portée du conteneur
+}
